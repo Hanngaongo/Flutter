@@ -1,94 +1,132 @@
 import 'package:flutter/material.dart';
-import 'auth_service.dart';
 import 'login.dart';
 
-class ProfilePage extends StatefulWidget {
-  final String token;
+class ProfileScreen extends StatelessWidget {
+  final Map<String, dynamic> user;
 
-  ProfilePage({required this.token});
-
-  @override
-  State<ProfilePage> createState() => _ProfilePageState();
-}
-
-class _ProfilePageState extends State<ProfilePage> {
-  Map<String, dynamic>? user;
-  final AuthService auth = AuthService();
-
-  @override
-  void initState() {
-    super.initState();
-    loadProfile();
-  }
-
-  loadProfile() async {
-    final data = await auth.getProfile(widget.token);
-
-    if (data == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Không thể tải hồ sơ. Token không hợp lệ!")),
-      );
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (_) => LoginPage()),
-      );
-      return;
-    }
-
-    setState(() => user = data);
-  }
+  const ProfileScreen({
+    super.key,
+    required this.user, required token,
+  });
 
   @override
   Widget build(BuildContext context) {
-    if (user == null) {
-      return Scaffold(
-        body: Center(child: CircularProgressIndicator()),
-      );
-    }
-
     return Scaffold(
-      backgroundColor: Color(0xfff7ecf7),
+      backgroundColor: const Color(0xfff6f6fb),
       appBar: AppBar(
-        title: Text("Hồ sơ cá nhân"),
-        backgroundColor: Colors.transparent,
+        backgroundColor: const Color(0xfff6f6fb),
         elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: const Text(
+          "Profile",
+          style: TextStyle(color: Colors.black),
+        ),
+        centerTitle: true,
       ),
-      body: Center(
+      body: Padding(
+        padding: const EdgeInsets.all(16),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            /// Avatar
             CircleAvatar(
-              radius: 50,
-              backgroundImage: user!["image"] != null
-                  ? NetworkImage(user!["image"])
-                  : AssetImage("assets/default.png") as ImageProvider,
+              radius: 60,
+              backgroundImage: NetworkImage(user["image"]),
             ),
-            SizedBox(height: 16),
 
+            const SizedBox(height: 12),
+
+            /// Name
             Text(
-              "${user!["firstName"]} ${user!["lastName"]}",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              "${user['firstName']} ${user['lastName']}",
+              style: const TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ),
             ),
 
-            Text("@${user!["username"]}",
-                style: TextStyle(fontSize: 16, color: Colors.grey)),
+            /// Username
+            Text(
+              "@${user['username']}",
+              style: const TextStyle(
+                fontSize: 16,
+                color: Colors.grey,
+              ),
+            ),
 
-            SizedBox(height: 10),
+            const SizedBox(height: 20),
 
-            Text("Email: ${user!["email"]}"),
+            /// INFO LIST
+            Expanded(
+              child: ListView(
+                children: [
+                  infoCard("ID", user["id"]),
+                  infoCard("Gender", user["gender"]),
+                  infoCard("Email", user["email"]),
+                  infoCard("Access Token", user["accessToken"]),
+                  infoCard("Refresh Token", user["refreshToken"]),
+                ],
+              ),
+            ),
 
-            SizedBox(height: 30),
+            /// LOGOUT BUTTON
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                icon: const Icon(Icons.logout),
+                label: const Text(
+                  "Đăng xuất",
+                  style: TextStyle(fontSize: 16),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red,
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const LoginPage(),
+                    ),
+                    (route) => false,
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
-            ElevatedButton.icon(
-              onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => LoginPage()),
-                );
-              },
-              icon: Icon(Icons.logout),
-              label: Text("Đăng xuất"),
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent),
+  Widget infoCard(String title, dynamic value) {
+    return Card(
+      elevation: 4,
+      margin: const EdgeInsets.only(bottom: 14),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 15,
+              ),
+            ),
+            const SizedBox(height: 6),
+            SelectableText(
+              value.toString(),
+              style: const TextStyle(fontSize: 14),
             ),
           ],
         ),

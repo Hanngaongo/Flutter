@@ -1,90 +1,119 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'auth_service.dart';
+import 'package:http/http.dart' as http;
 import 'profile.dart';
+import 'main.dart';
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final TextEditingController userCtrl = TextEditingController();
-  final TextEditingController passCtrl = TextEditingController();
-
-  final AuthService auth = AuthService();
+  final _user = TextEditingController();
+  final _pass = TextEditingController();
   bool loading = false;
 
-  login() async {
+  Future<void> login() async {
     setState(() => loading = true);
 
-    final data = await auth.login(userCtrl.text.trim(), passCtrl.text.trim());
+    final res = await http.post(
+      Uri.parse("https://dummyjson.com/auth/login"),
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode({
+        "username": _user.text.trim(),
+        "password": _pass.text.trim(),
+      }),
+    );
 
     setState(() => loading = false);
 
-    if (data == null || data["token"] == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(auth.lastError ?? "Lỗi không xác định")),
-      );
-      return;
-    }
+    if (res.statusCode == 200) {
+      final data = jsonDecode(res.body);
 
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (_) => ProfilePage(
-          token: data["token"],
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (_) => ProfileScreen(user: data, token: null,),
         ),
-      ),
-    );
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Sai tài khoản hoặc mật khẩu")),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: Tooltip(
-          message: 'Back',
-          child: IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.black),
-            onPressed: () {
-              Navigator.popUntil(context, (route) => route.isFirst);
-            },
-          ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            // 🔥 BACK → GIAO DIỆN CHÍNH (DRAWER)
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (_) => const HomeScreen()),
+              (route) => false,
+            );
+          },
         ),
+        title: const Text("LOGIN"),
+        centerTitle: true,
       ),
-      backgroundColor: Color(0xfff7ecf7),
+
       body: Center(
         child: Padding(
-          padding: EdgeInsets.all(24),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text("Đăng Nhập",
-                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
-              SizedBox(height: 20),
+          padding: const EdgeInsets.all(24),
+          child: Card(
+            elevation: 10,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(Icons.lock, size: 80, color: Colors.blue),
+                  const SizedBox(height: 20),
 
-              TextField(
-                controller: userCtrl,
-                decoration: InputDecoration(labelText: "Tên đăng nhập"),
+                  TextField(
+                    controller: _user,
+                    decoration: const InputDecoration(
+                      labelText: "Username",
+                      prefixIcon: Icon(Icons.person),
+                    ),
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  TextField(
+                    controller: _pass,
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                      labelText: "Password",
+                      prefixIcon: Icon(Icons.lock),
+                    ),
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: loading ? null : login,
+                      child: loading
+                          ? const CircularProgressIndicator()
+                          : const Text("Đăng nhập"),
+                    ),
+                  ),
+                ],
               ),
-
-              TextField(
-                controller: passCtrl,
-                obscureText: true,
-                decoration: InputDecoration(labelText: "Mật khẩu"),
-              ),
-
-              SizedBox(height: 20),
-
-              ElevatedButton(
-                onPressed: loading ? null : login,
-                child: loading
-                    ? CircularProgressIndicator(color: Colors.white)
-                    : Text("LOGIN"),
-              ),
-            ],
+            ),
           ),
         ),
       ),
