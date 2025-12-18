@@ -7,13 +7,13 @@ class NewsDetailScreen extends StatelessWidget {
   
   const NewsDetailScreen({super.key, required this.article});
 
-  // Hàm mở link bài viết gốc trong trình duyệt (Chức năng chính)
+  
   Future<void> _launchURL(String url, BuildContext context) async {
     final uri = Uri.parse(url);
     if (await canLaunchUrl(uri)) {
       await launchUrl(uri, mode: LaunchMode.externalApplication);
     } else {
-      // Hiển thị snackbar nếu không mở được
+      
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Không thể mở link: $url')),
       );
@@ -31,7 +31,7 @@ class NewsDetailScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            // Hiển thị hình ảnh
+            
             if (article.urlToImage != null)
               ClipRRect(
                 borderRadius: BorderRadius.circular(10.0),
@@ -47,7 +47,7 @@ class NewsDetailScreen extends StatelessWidget {
               ),
             const SizedBox(height: 16),
 
-            // Hiển thị tiêu đề
+            
             Text(
               article.title,
               style: const TextStyle(
@@ -57,7 +57,7 @@ class NewsDetailScreen extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             
-            // Nguồn và mô tả
+            
             Text(
               'Nguồn: ${article.sourceName ?? 'Không rõ'}',
               style: TextStyle(
@@ -68,14 +68,14 @@ class NewsDetailScreen extends StatelessWidget {
             ),
             const Divider(height: 30),
 
-            // Hiển thị nội dung chi tiết
+            
             Text(
               article.content ?? article.description,
               style: const TextStyle(fontSize: 16, height: 1.5),
             ),
             const SizedBox(height: 20),
 
-            // Nút mở link gốc trong trình duyệt
+            
             Center(
               child: ElevatedButton.icon(
                 onPressed: () => _launchURL(article.url, context),

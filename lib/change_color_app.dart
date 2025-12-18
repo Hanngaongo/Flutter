@@ -65,7 +65,7 @@ class _ChangeColorAppState extends State<ChangeColorApp> {
             ),
             const SizedBox(height: 20),
 
-            // Hàng thứ 2: tên màu nền hiện tại (tiếng Việt)
+            
             Text(
               colorNames[bgColor] ?? "Không rõ",
               style: const TextStyle(
@@ -77,7 +77,7 @@ class _ChangeColorAppState extends State<ChangeColorApp> {
 
             const SizedBox(height: 40),
 
-            // Hàng thứ 3: 2 nút nằm ngang
+            
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -92,7 +92,7 @@ class _ChangeColorAppState extends State<ChangeColorApp> {
                 ElevatedButton(
                   onPressed: _resetColor,
                   style: ElevatedButton.styleFrom(
-                    //backgroundColor: Colors.grey[700],
+                    
                     padding:
                         const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                   ),

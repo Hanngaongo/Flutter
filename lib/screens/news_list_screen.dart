@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../models/article.dart';
-import 'news_detail_screen.dart'; // Đảm bảo đường dẫn này đúng
+import 'news_detail_screen.dart'; 
 
 class NewsListScreen extends StatefulWidget {
   const NewsListScreen({super.key});
@@ -12,10 +12,10 @@ class NewsListScreen extends StatefulWidget {
 }
 
 class _NewsListScreenState extends State<NewsListScreen> {
-  // Hàm gọi API
+  
   Future<List<Article>> fetchArticles() async {
-    const String apiKey = '1d17b82e8e7f46f8982caa86815034ee'; // <--- THAY THẾ KEY CỦA BẠN TẠI ĐÂY
-    // Gọi API lấy tin tức nổi bật của Mỹ
+    const String apiKey = '1d17b82e8e7f46f8982caa86815034ee';
+   
     const String apiUrl = 'https://newsapi.org/v2/top-headlines?country=us&apiKey=$apiKey';
 
     try {
@@ -25,7 +25,7 @@ class _NewsListScreenState extends State<NewsListScreen> {
         final Map<String, dynamic> data = jsonDecode(response.body);
         final List<dynamic> articlesJson = data['articles'];
         
-        // Chuyển đổi JSON thành Article và lọc bỏ các bài không có ảnh hoặc URL
+        
         return articlesJson
             .map((json) => Article.fromJson(json))
             .where((article) => article.urlToImage != null && article.url.isNotEmpty && article.title != 'Tiêu đề không có') 
@@ -48,7 +48,7 @@ class _NewsListScreenState extends State<NewsListScreen> {
         future: fetchArticles(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator()); // Hiển thị loading
+            return const Center(child: CircularProgressIndicator()); 
           } else if (snapshot.hasError) {
             return Center(
               child: Padding(
@@ -72,14 +72,14 @@ class _NewsListScreenState extends State<NewsListScreen> {
     );
   }
 
-  // Widget hiển thị từng bài viết (Đã sửa lỗi vị trí, nằm trong class State)
+ 
   Widget _buildArticleItem(BuildContext context, Article article) {
     return Card(
       elevation: 3,
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
       child: ListTile(
         onTap: () {
-          // Khi nhấn vào bài viết → chuyển sang màn hình chi tiết
+          
           Navigator.push(
             context,
             MaterialPageRoute(

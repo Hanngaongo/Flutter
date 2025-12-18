@@ -37,7 +37,7 @@ class Myclassrom extends StatelessWidget {
       "https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg",
     ];
 
-    // Trộn ảnh để random thứ tự
+    
     images.shuffle();
 
     return ListView(
@@ -56,7 +56,7 @@ class Myclassrom extends StatelessWidget {
   }
 
   Widget item(int index, String imageUrl) {
-    // Danh sách tiêu đề và mã lớp
+
     List<String> titles = [
       "Lập Trình Flutter",
       "Phát Triển Web",
@@ -82,10 +82,10 @@ class Myclassrom extends StatelessWidget {
       "TIN1010"
     ];
 
-    // Lấy tiêu đề và mã lớp theo index
+  
     String title = titles[index % titles.length];
     String subtitle = subtitles[index % subtitles.length];
-    String siSo = "${30 + Random().nextInt(30)} học viên"; // random sĩ số
+    String siSo = "${30 + Random().nextInt(30)} học viên"; 
 
     return Container(
       margin: const EdgeInsets.only(left: 20, right: 20, bottom: 10),

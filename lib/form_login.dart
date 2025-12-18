@@ -18,7 +18,7 @@ class _LoginFormState extends State<FormLogin> {
     return Scaffold(
       backgroundColor: Colors.blue[50],
 
-      // ✅ AppBar ở sát trên cùng
+      
       appBar: AppBar(
         backgroundColor: Colors.blue[700],
         elevation: 0,
@@ -32,7 +32,7 @@ class _LoginFormState extends State<FormLogin> {
         ),
       ),
 
-      // ✅ Thân chính có khoảng cách bằng SizedBox
+      
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Form(
@@ -40,9 +40,9 @@ class _LoginFormState extends State<FormLogin> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const SizedBox(height: 150), // 👈 khoảng cách giữa AppBar và form
+              const SizedBox(height: 150), 
 
-              // Ô nhập Tên người dùng
+             
               TextFormField(
                 controller: _usernameController,
                 decoration: InputDecoration(
@@ -62,7 +62,7 @@ class _LoginFormState extends State<FormLogin> {
               ),
               const SizedBox(height: 20),
 
-              // Ô nhập Mật khẩu
+          
               TextFormField(
                 controller: _passwordController,
                 obscureText: _obscureText,
@@ -95,7 +95,7 @@ class _LoginFormState extends State<FormLogin> {
               ),
               const SizedBox(height: 40),
 
-              // Nút Đăng nhập
+              
               SizedBox(
                 width: double.infinity,
                 height: 48,

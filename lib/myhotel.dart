@@ -14,17 +14,20 @@ class MyHotel extends StatelessWidget {
           'Xung quanh vị trí hiện tại\n23 thg 10 – 24 thg 10',
           style: TextStyle(fontSize: 16, color: Colors.white),
         ),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () {
-            Navigator.popUntil(context, (route) => route.isFirst);
-          },
+        leading: Tooltip(
+          message: 'Back',
+          child: IconButton(
+            icon: const Icon(Icons.arrow_back, color: Colors.white),
+            onPressed: () {
+              Navigator.popUntil(context, (route) => route.isFirst);
+            },
+          ),
         ),
         toolbarHeight: 70,
       ),
       body: Column(
         children: [
-          // Thanh bộ lọc
+          
           Container(
             color: Colors.white,
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
@@ -39,7 +42,7 @@ class MyHotel extends StatelessWidget {
           ),
           const Divider(height: 1),
 
-          // Danh sách khách sạn
+          
           Expanded(
             child: ListView(
               padding: const EdgeInsets.all(8),
@@ -85,7 +88,7 @@ class MyHotel extends StatelessWidget {
   }
 }
 
-// Nút bộ lọc
+
 class _FilterButton extends StatelessWidget {
   final IconData icon;
   final String label;
@@ -102,7 +105,7 @@ class _FilterButton extends StatelessWidget {
   }
 }
 
-// Card hiển thị thông tin khách sạn
+
 class HotelCard extends StatelessWidget {
   final String imageUrl;
   final String title;

@@ -23,7 +23,7 @@ class _FormRegisterState extends State<FormRegister> {
     return Scaffold(
       backgroundColor: Colors.purple[5],
 
-      // 💜 AppBar tím sát trên cùng
+     
       appBar: AppBar(
         backgroundColor: Colors.purple[700],
         elevation: 0,
@@ -43,9 +43,9 @@ class _FormRegisterState extends State<FormRegister> {
           key: _formKey,
           child: Column(
             children: [
-              const SizedBox(height: 50), // 👈 khoảng cách dưới AppBar
+              const SizedBox(height: 50), 
 
-              // Ô nhập tên người dùng
+              
               TextFormField(
                 controller: _usernameController,
                 decoration: InputDecoration(
@@ -65,7 +65,7 @@ class _FormRegisterState extends State<FormRegister> {
               ),
               const SizedBox(height: 20),
 
-              // Ô nhập email
+             
               TextFormField(
                 controller: _emailController,
                 decoration: InputDecoration(
@@ -89,7 +89,7 @@ class _FormRegisterState extends State<FormRegister> {
               ),
               const SizedBox(height: 20),
 
-              // Ô nhập mật khẩu
+              
               TextFormField(
                 controller: _passwordController,
                 obscureText: _obscurePassword,
@@ -126,7 +126,7 @@ class _FormRegisterState extends State<FormRegister> {
               ),
               const SizedBox(height: 20),
 
-              // Ô nhập lại mật khẩu
+              
               TextFormField(
                 controller: _confirmPasswordController,
                 obscureText: _obscureConfirm,
@@ -163,7 +163,6 @@ class _FormRegisterState extends State<FormRegister> {
               ),
               const SizedBox(height: 40),
 
-              // 💜 Nút Đăng ký
               SizedBox(
                 width: double.infinity,
                 height: 48,
@@ -191,16 +190,7 @@ class _FormRegisterState extends State<FormRegister> {
 
               const SizedBox(height: 20),
 
-              // Liên kết sang đăng nhập
-              // TextButton(
-              //   onPressed: () {
-              //     Navigator.pop(context); // trở lại FormLogin
-              //   },
-              //   child: Text(
-              //     'Đã có tài khoản? Đăng nhập',
-              //     style: TextStyle(color: Colors.purple[700]),
-              //   ),
-              // ),
+              
             ],
           ),
         ),

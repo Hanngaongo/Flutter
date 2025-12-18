@@ -64,6 +64,7 @@ flutter:
     - assets/images/anh2.png
     - assets/images/anh3.png
     - assets/images/anh4.png
+    - assets/images/nen.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

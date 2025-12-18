@@ -12,7 +12,7 @@ class MyProduct extends StatefulWidget {
 class _MyProductState extends State<MyProduct> {
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
     test_API.getAllProduct();
   }
@@ -32,7 +32,7 @@ class _MyProductState extends State<MyProduct> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Spacer(), // đẩy các icon ra phía bên phải
+            Spacer(), 
             IconButton(
               onPressed: () {
                 print("Tìm kiếm sản phẩm");
@@ -56,19 +56,19 @@ class _MyProductState extends State<MyProduct> {
       body: FutureBuilder<List<Product>>(
         future: test_API.getAllProduct(),
         builder: (context, snap) {
-          // Loading UI
+          
           if (snap.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
-          // Khi lỗi
+          
           if (snap.hasError) {
             return const Center(child: Text("Lỗi tải dữ liệu"));
           }
-          // Không có dữ liệu
+          
           if (!snap.hasData || snap.data!.isEmpty) {
             return const Center(child: Text("Không có sản phẩm"));
           }
-          // Hiển thị danh sách
+          
           return buildList(snap.data!);
         },
       ),
@@ -114,10 +114,10 @@ class _MyProductState extends State<MyProduct> {
     return GridView.builder(
       padding: const EdgeInsets.all(8),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2, // 2 sản phẩm mỗi hàng
-        crossAxisSpacing: 8, // khoảng cách ngang giữa các item
-        mainAxisSpacing: 8, // khoảng cách dọc giữa các item
-        childAspectRatio: 0.7, // tỷ lệ chiều rộng/chiều cao của mỗi item
+        crossAxisCount: 2, 
+        crossAxisSpacing: 8, 
+        mainAxisSpacing: 8, 
+        childAspectRatio: 0.7, 
       ),
       itemCount: ls.length,
       itemBuilder: (context, i) {

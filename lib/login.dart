@@ -44,11 +44,14 @@ class _LoginPageState extends State<LoginPage> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () {
-            Navigator.popUntil(context, (route) => route.isFirst);
-          },
+        leading: Tooltip(
+          message: 'Back',
+          child: IconButton(
+            icon: const Icon(Icons.arrow_back, color: Colors.black),
+            onPressed: () {
+              Navigator.popUntil(context, (route) => route.isFirst);
+            },
+          ),
         ),
       ),
       backgroundColor: Color(0xfff7ecf7),

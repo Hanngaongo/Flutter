@@ -21,19 +21,19 @@ class AuthService {
         final decoded = jsonDecode(response.body);
 
         if (decoded is Map<String, dynamic>) {
-          // Common token keys to check
+          
           final altKeys = ['token', 'accessToken', 'access_token', 'jwt', 'session'];
 
           for (final k in altKeys) {
             if (decoded.containsKey(k) && decoded[k] != null) {
-              // normalize to 'token' key for callers
+              
               decoded['token'] = decoded[k];
               lastError = null;
               return decoded;
             }
           }
 
-          // sometimes token is nested under 'data'
+         
           if (decoded.containsKey('data') && decoded['data'] is Map<String, dynamic>) {
             final data = decoded['data'] as Map<String, dynamic>;
             for (final k in altKeys) {

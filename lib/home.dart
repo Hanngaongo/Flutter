@@ -13,7 +13,7 @@ class Home extends StatelessWidget {
 
   Widget myBody() {
     return SingleChildScrollView(
-      // 👈 thêm để cuộn được
+      
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -37,9 +37,7 @@ class Home extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        
         children: [
-          // Cột chứa tiêu đề và phụ đề
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: const [
@@ -50,7 +48,6 @@ class Home extends StatelessWidget {
               Text('Phía Bắc châu Phi', style: TextStyle(color: Colors.grey)),
             ],
           ),
-          // Icon + số
           Row(
             children: const [
               Icon(Icons.star, color: Colors.red),

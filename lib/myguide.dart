@@ -10,7 +10,7 @@ class MyGuide extends StatelessWidget {
       appBar: AppBar(title: const Text('MyGuide')),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(20.0), // ✅ padding bao toàn bộ
+          padding: const EdgeInsets.all(20.0), 
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,7 +32,7 @@ class MyGuide extends StatelessWidget {
     );
   }
 
-  // 🔔 Block 1: Icon góc phải
+  
   Widget block1() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
@@ -44,7 +44,7 @@ class MyGuide extends StatelessWidget {
     );
   }
 
-  // 👋 Block 2: Chữ Welcome, Charlie
+  
   Widget block2() {
     return const Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,7 +61,7 @@ class MyGuide extends StatelessWidget {
     );
   }
 
-  // 🔍 Block 3: Thanh tìm kiếm
+  
   Widget block3() {
     return TextField(
       decoration: InputDecoration(
@@ -74,7 +74,7 @@ class MyGuide extends StatelessWidget {
     );
   }
 
-  // 📍 Block 4: Tiêu đề "Saved Places"
+ 
   Widget block4() {
     return const Text(
       "Saved Places",
@@ -82,7 +82,7 @@ class MyGuide extends StatelessWidget {
     );
   }
 
-  // 🖼️ Block 5: GridView hiển thị ảnh
+  
   Widget block5() {
     final imageAssets = [
       "assets/images/anh1.png",
